@@ -1,102 +1,127 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>E-Commerce</title>
-<link rel="stylesheet" href="../style.css">
-</head>
-<body>
+/* GENERAL STYLES */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+}
 
-<!-- NAV BAR -->
-<div class="nav_bar">
-    <a href="index.html">Products</a>
-    <a href="about_us.html">About Us</a>
-    <a href="cart.html">Cart</a>
-    <a href="checkout.html">Checkout</a>
-</div>
+/* NAV BAR */
+.nav_bar {
+    background-color: #333;
+    padding: 10px 20px;
+    display: flex;
+    gap: 20px;
+}
 
-<div class="container">
-    <h1>Our Products</h1>
+.nav_bar a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+}
 
-    <div class="product-grid">
-        <!-- Product 1 -->
-        <div class="product-card" data-name="Product 1" data-price="49.99">
-            <img src="C:\Users\JOELWBAILEY\Downloads\sticker1.jpg" alt="Product 1">
-            <h3>Product 1</h3>
-            <p>$49.99</p>
-            <button class="add-to-cart">Add to Cart</button>
-        </div>
-        <!-- Product 2 -->
-        <div class="product-card" data-name="Product 2" data-price="79.99">
-            <img src="C:\Users\JOELWBAILEY\Downloads\sticker2.jpg" alt="Product 2">
-            <h3>Product 2</h3>
-            <p>$79.99</p>
-            <button class="add-to-cart">Add to Cart</button>
-        </div>
-        <!-- Product 3 -->
-        <div class="product-card" data-name="Product 3" data-price="29.99">
-            <img src="C:\Users\JOELWBAILEY\Downloads\sticker3.jpg" alt="Product 3">
-            <h3>Product 3</h3>
-            <p>$29.99</p>
-            <button class="add-to-cart">Add to Cart</button>
-        </div>
-        <!-- Product 4 -->
-        <div class="product-card" data-name="Product 4" data-price="99.99">
-            <img src="C:\Users\JOELWBAILEY\Downloads\sticker4.jpg" alt="Product 4">
-            <h3>Product 4</h3>
-            <p>$99.99</p>
-            <button class="add-to-cart">Add to Cart</button>
-        </div>
-    </div>
-</div>
+.nav_bar a:hover {
+    color: #ff9900;
+}
 
-<!-- IMAGE POPUP -->
-<div class="popup-bg" id="imgPopup">
-    <div class="popup-box">
-        <span class="close-btn" id="closePopup">&times;</span>
-        <img id="popupImage" src="">
-    </div>
-</div>
+/* CONTAINER */
+.container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
 
-<script>
-// Add to Cart Function
-const buttons = document.querySelectorAll(".add-to-cart");
-buttons.forEach(btn => {
-    btn.addEventListener("click", function() {
-        const card = btn.parentElement;
-        const name = card.dataset.name;
-        const price = parseFloat(card.dataset.price);
-        let cart = JSON.parse(localStorage.getItem("cart")) || [];
-        cart.push({name, price, quantity: 1});
-        localStorage.setItem("cart", JSON.stringify(cart));
-        alert(name + " added to cart!");
-    });
-});
+/* PRODUCT GRID */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
 
-// IMAGE POPUP FUNCTIONALITY
-const productImages = document.querySelectorAll(".product-card img");
-const popup = document.getElementById("imgPopup");
-const popupImg = document.getElementById("popupImage");
-const closeBtn = document.getElementById("closePopup");
+/* PRODUCT CARD */
+.product-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    text-align: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+}
 
-productImages.forEach(img => {
-    img.addEventListener("click", function() {
-        popup.style.display = "flex";
-        popupImg.src = img.src;
-    });
-});
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
 
-closeBtn.addEventListener("click", function() {
-    popup.style.display = "none";
-});
+.product-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
 
-popup.addEventListener("click", function(e) {
-    if (e.target === popup) popup.style.display = "none";
-});
-</script>
+.product-card h3 {
+    margin: 10px 0 5px;
+}
 
-</body>
-</html>
+.product-card p {
+    font-size: 1.1em;
+    color: #333;
+    margin-bottom: 10px;
+}
 
+.add-to-cart {
+    background-color: #ff9900;
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    margin-bottom: 15px;
+    cursor: pointer;
+    font-size: 1em;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
 
+.add-to-cart:hover {
+    background-color: #e88e00;
+}
+
+/* IMAGE POPUP */
+.popup-bg {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7);
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+.popup-box {
+    position: relative;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 90%;
+    max-height: 90%;
+    text-align: center;
+}
+
+.popup-box img {
+    max-width: 100%;
+    max-height: 80vh;
+    border-radius: 5px;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+}
