@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>E-Commerce</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- NAV BAR -->
+<div class="nav_bar">
+    <a href="index.html">Products</a>
+    <a href="about_us.html">About Us</a>
+    <a href="cart.html">Cart</a>
+    <a href="checkout.html">Checkout</a>
+</div>
+
+<div class="container">
+    <h1>Our Products</h1>
+
+    <div class="product-grid">
+        <!-- Product 1 -->
+        <div class="product-card" data-name="Product 1" data-price="49.99">
+            <img src="C:\Users\JOELWBAILEY\Downloads\sticker1.jpg" alt="Product 1">
+            <h3>Product 1</h3>
+            <p>$49.99</p>
+            <button class="add-to-cart">Add to Cart</button>
+        </div>
+        <!-- Product 2 -->
+        <div class="product-card" data-name="Product 2" data-price="79.99">
+            <img src="C:\Users\JOELWBAILEY\Downloads\sticker2.jpg" alt="Product 2">
+            <h3>Product 2</h3>
+            <p>$79.99</p>
+            <button class="add-to-cart">Add to Cart</button>
+        </div>
+        <!-- Product 3 -->
+        <div class="product-card" data-name="Product 3" data-price="29.99">
+            <img src="C:\Users\JOELWBAILEY\Downloads\sticker3.jpg" alt="Product 3">
+            <h3>Product 3</h3>
+            <p>$29.99</p>
+            <button class="add-to-cart">Add to Cart</button>
+        </div>
+        <!-- Product 4 -->
+        <div class="product-card" data-name="Product 4" data-price="99.99">
+            <img src="C:\Users\JOELWBAILEY\Downloads\sticker4.jpg" alt="Product 4">
+            <h3>Product 4</h3>
+            <p>$99.99</p>
+            <button class="add-to-cart">Add to Cart</button>
+        </div>
+    </div>
+</div>
+
+<!-- IMAGE POPUP -->
+<div class="popup-bg" id="imgPopup">
+    <div class="popup-box">
+        <span class="close-btn" id="closePopup">&times;</span>
+        <img id="popupImage" src="">
+    </div>
+</div>
+
+<script>
+// Add to Cart Function
+const buttons = document.querySelectorAll(".add-to-cart");
+buttons.forEach(btn => {
+    btn.addEventListener("click", function() {
+        const card = btn.parentElement;
+        const name = card.dataset.name;
+        const price = parseFloat(card.dataset.price);
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        cart.push({name, price, quantity: 1});
+        localStorage.setItem("cart", JSON.stringify(cart));
+        alert(name + " added to cart!");
+    });
+});
+
+// IMAGE POPUP FUNCTIONALITY
+const productImages = document.querySelectorAll(".product-card img");
+const popup = document.getElementById("imgPopup");
+const popupImg = document.getElementById("popupImage");
+const closeBtn = document.getElementById("closePopup");
+
+productImages.forEach(img => {
+    img.addEventListener("click", function() {
+        popup.style.display = "flex";
+        popupImg.src = img.src;
+    });
+});
+
+closeBtn.addEventListener("click", function() {
+    popup.style.display = "none";
+});
+
+popup.addEventListener("click", function(e) {
+    if (e.target === popup) popup.style.display = "none";
+});
+</script>
+
+</body>
+</html>

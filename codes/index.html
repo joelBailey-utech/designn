@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Registration + Login System</title>
+
+<!-- Link to CSS -->
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+<div class="container">
+    <h1 class="intro">We are the Instigators</h1>
+    <h1>人( ๑｀⩊´๑)ᵐʷᵉʰᵉʰᵉʰᵉ</h1>>
+    <h2>The Home of Passive Aggression</h2>>
+    <div class="main-buttons">
+        <button id="openRegister">Register</button>
+        <button id="openLogin">Sign In</button>
+    </div>
+</div>
+
+<div class="popup-bg" id="regPopup">
+    <div class="popup-box">
+        <span class="close-btn" onclick="closePopup('regPopup')">&times;</span>
+        <h2>Register</h2>
+        <div class="error" id="regError"></div>
+        <form id="registerForm">
+            <label>Full Name</label>
+            <input type="text" id="reg_name">
+            <label>Email Address</label>
+            <input type="email" id="reg_email">
+            <label>Age</label>
+            <input type="number" id="reg_age">
+            <label>Date of Birth</label>
+            <input type="date" id="reg_dob">
+            <label>Username</label>
+            <input type="text" id="reg_username">
+            <label>Password</label>
+            <input type="password" id="reg_password">
+            <button class="submit-btn" type="submit">Register</button>
+        </form>
+    </div>
+</div>
+
+<div class="popup-bg" id="loginPopup">
+    <div class="popup-box">
+        <span class="close-btn" onclick="closePopup('loginPopup')">&times;</span>
+        <h2>Sign In</h2>
+        <div class="error" id="loginError"></div>
+        <form id="loginForm">
+            <label>Username</label>
+            <input type="text" id="login_username">
+            <label>Password</label>
+            <input type="password" id="login_password">
+            <button class="submit-btn" type="submit">Sign In</button>
+        </form>
+    </div>
+</div>
+
+<div id="welcomePage">
+    <h1>🎉 Access Granted!</h1>
+    <p>Welcome, instigator!</p>
+    <p style="font-size:16px; color:#555;">Tap anywhere to continue</p>
+</div>
+
+<script>
+window.onload = () => {
+    document.getElementById('regPopup').style.display = 'none';
+    document.getElementById('loginPopup').style.display = 'none';
+};
+
+document.getElementById("openRegister").onclick = () => {
+    document.getElementById("regPopup").style.display = "flex";
+    document.getElementById("loginPopup").style.display = "none";
+};
+document.getElementById("openLogin").onclick = () => {
+    document.getElementById("loginPopup").style.display = "flex";
+    document.getElementById("regPopup").style.display = "none";
+};
+
+function closePopup(id) { document.getElementById(id).style.display = "none"; }
+
+document.getElementById("registerForm").addEventListener("submit", function(e){
+    e.preventDefault();
+    let name = reg_name.value.trim();
+    let email = reg_email.value.trim();
+    let age = reg_age.value.trim();
+    let dob = reg_dob.value.trim();
+    let username = reg_username.value.trim();
+    let password = reg_password.value.trim();
+
+    if (!name || !email || !age || !dob || !username || !password) {
+        showRegError("All fields required!");
+        return;
+    }
+
+    let user = { name, email, age, dob, username, password };
+    localStorage.setItem("userAccount", JSON.stringify(user));
+    alert("Account Registered!");
+    closePopup("regPopup");
+    document.getElementById("registerForm").reset();
+});
+
+document.getElementById("loginForm").addEventListener("submit", function(e){
+    e.preventDefault();
+    let savedUser = JSON.parse(localStorage.getItem("userAccount"));
+    let username = login_username.value.trim();
+    let password = login_password.value.trim();
+
+    if (!savedUser) {
+        showLoginError("No account registered!");
+        return;
+    }
+
+    if (username === savedUser.username && password === savedUser.password) {
+        document.querySelector('.container').style.display = 'none';
+
+        const welcomeDiv = document.getElementById('welcomePage');
+        welcomeDiv.style.display = 'block';
+        welcomeDiv.innerHTML = `
+            <h1>🎉 Access Granted!</h1>
+            <p>Welcome, ${savedUser.name}!</p>
+            <p style="font-size:16px; color:#555;">Tap anywhere to continue</p>
+        `;
+    } else {
+        showLoginError("Incorrect username or password.");
+    }
+});
+
+function showRegError(msg) { 
+    regError.style.display = "block"; 
+    regError.textContent = msg; 
+}
+function showLoginError(msg) { 
+    loginError.style.display = "block"; 
+    loginError.textContent = msg; 
+}
+
+// --- Welcome page click → go to ecommers.html ---
+document.getElementById('welcomePage').addEventListener('click', function() {
+
+   window.location.href = "file:///C:/Users/JOELWBAILEY/Downloads/ecommers.html";
+});
+</script>
+
+</body>
+</html>
