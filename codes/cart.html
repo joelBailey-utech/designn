@@ -10,7 +10,7 @@
 
 <!-- NAV BAR -->
 <div class="nav_bar">
-    <a href="ecommers.html">Products</a>
+    <a href="products.html">Products</a>
     <a href="aboutus.html">About Us</a>
     <a href="cart.html">Cart</a>
     <a href="checkout.html">Checkout</a>
@@ -20,7 +20,7 @@
     <h1>Your Cart</h1>
     <div id="cartContainer"></div>
     <p id="totalPrice"></p>
-    <button id="checkoutBtn">Checkout</button>
+    <button id="checkoutBtn">Clear Cart</button>
 </div>
 
 <script>
@@ -87,15 +87,17 @@ function renderCart() {
     });
 }
 
+// Clear cart functionality
 checkoutBtn.addEventListener("click", function() {
     if(cart.length === 0){
-        alert("Your cart is empty!");
+        alert("Your cart is already empty!");
         return;
     }
-    alert("Thank you for your purchase!\nTotal: $" + cart.reduce((sum,i)=>sum+i.price*i.quantity,0).toFixed(2));
+    // Clear the cart
     localStorage.removeItem("cart");
     cart = [];
-    renderCart();
+    renderCart(); // Re-render the cart display
+    alert("Your cart has been cleared.");
 });
 
 renderCart();
@@ -103,4 +105,3 @@ renderCart();
 
 </body>
 </html>
-
