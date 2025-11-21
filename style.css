@@ -1,4 +1,5 @@
 /* ================= GLOBAL ================= */
+/* Apply universal box-sizing so padding/borders don't affect element width */
 *,
 *::before,
 *::after {
@@ -6,47 +7,51 @@
 }
 
 body {
-    font-family: Arial, sans-serif;
+    font-family: Arial, sans-serif; /* Clean basic font */
     margin: 0;
-    padding-top: 90px; /* Space for fixed navbar */
-    background: #FFC300;
+    padding-top: 90px; /* Keeps space for the fixed navbar */
+    background: #FFC300; /* Bright yellow background */
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    align-items: center;
-    min-height: 100vh;
+    align-items: center; /* Centers page content horizontally */
+    min-height: 100vh; /* Ensures full screen height */
 }
 
 /* ================= NAVIGATION BAR ================= */
+/* Main top navigation bar */
 .nav_bar {
     width: 100%;
     background: #fff;
-    padding: 18px 0;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
-    position: fixed;
+    padding: 18px 0; /* Vertical spacing */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25); /* Adds depth */
+    position: fixed; /* Stays at top */
     top: 0;
     left: 0;
-    z-index: 100;
+    z-index: 100; /* Always above page elements */
     display: flex;
     justify-content: center;
-    gap: 40px;
-    flex-wrap: wrap;
+    gap: 40px; /* Space between navigation links */
+    flex-wrap: wrap; /* Allows wrapping on small screens */
 }
 
+/* Navigation links */
 .nav_bar a {
     font-size: 18px;
     color: #333;
     text-decoration: none;
     font-weight: bold;
     padding-bottom: 5px;
-    position: relative;
-    transition: 0.3s;
+    position: relative; /* Required for hover underline animation */
+    transition: 0.3s; /* Smooth color change */
 }
 
+/* Hover color change */
 .nav_bar a:hover {
     color: #007bff;
 }
 
+/* Animated underline effect */
 .nav_bar a::after {
     content: "";
     width: 0%;
@@ -58,11 +63,13 @@ body {
     transition: 0.3s;
 }
 
+/* Underline expands on hover */
 .nav_bar a:hover::after {
     width: 100%;
 }
 
 /* ================= CONTAINER ================= */
+/* Central white content container */
 .container {
     width: 90%;
     max-width: 1200px;
@@ -73,7 +80,7 @@ body {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
     text-align: center;
     display: grid;
-    row-gap: 20px;
+    row-gap: 20px; /* Space between internal elements */
 }
 
 /* ================= HEADINGS ================= */
@@ -83,7 +90,7 @@ h1,
     margin: 0 0 20px 0;
     font-weight: bold;
     color: #222;
-    text-transform: uppercase;
+    text-transform: uppercase; /* Makes the headings bold and loud */
 }
 
 h2 {
@@ -93,22 +100,25 @@ h2 {
 }
 
 /* ================= BUTTONS ================= */
+/* Default button style */
 button {
     padding: 12px 18px;
-    background: #007bff;
+    background: #007bff; /* Standard blue button */
     border: none;
     color: white;
     font-size: 18px;
     cursor: pointer;
     border-radius: 6px;
-    transition: 0.3s;
+    transition: 0.3s; /* Smooth hover zoom */
 }
 
+/* Hover effect enlarges slightly */
 button:hover {
     background: #0056b3;
     transform: scale(1.05);
 }
 
+/* Submit button variant (green) */
 button.submit-btn {
     background: #28a745;
     width: 100%;
@@ -121,19 +131,21 @@ button.submit-btn:hover {
 }
 
 /* ================= POPUP ================= */
+/* Dark background overlay */
 .popup-bg {
-    display: none;
+    display: none; /* Hidden until activated */
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.7);
+    background: rgba(0, 0, 0, 0.7); /* Dim screen */
     justify-content: center;
-    align-items: center;
-    z-index: 1000;
+    align-items: center; /* Center popup box */
+    z-index: 1000; /* Above everything */
 }
 
+/* White popup window */
 .popup-box {
     position: relative;
     background-color: #fff;
@@ -144,6 +156,7 @@ button.submit-btn:hover {
     text-align: center;
 }
 
+/* Inputs inside popup */
 .popup-box input,
 .popup-box button.submit-btn {
     width: 100%;
@@ -154,6 +167,7 @@ button.submit-btn:hover {
     border: 1px solid #ccc;
 }
 
+/* X close button */
 .close-btn {
     position: absolute;
     top: 10px;
@@ -163,6 +177,7 @@ button.submit-btn:hover {
 }
 
 /* ================= ERROR ================= */
+/* Hidden error message */
 .error {
     color: red;
     text-align: center;
@@ -171,6 +186,7 @@ button.submit-btn:hover {
 }
 
 /* ================= WELCOME ================= */
+/* Hidden welcome page text */
 #welcomePage {
     display: none;
     text-align: center;
@@ -180,12 +196,14 @@ button.submit-btn:hover {
 }
 
 /* ================= PRODUCT GRID ================= */
+/* Grid layout for product cards */
 .product-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* Responsive auto-fit layout */
     gap: 20px;
 }
 
+/* Individual product card */
 .product-card {
     background-color: #fff;
     border: 1px solid #ddd;
@@ -194,18 +212,20 @@ button.submit-btn:hover {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     text-align: center;
     transition: transform 0.2s, box-shadow 0.2s;
-    cursor: pointer;
+    cursor: pointer; /* Entire card is clickable */
 }
 
+/* Hover lift effect */
 .product-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
+/* Product images */
 .product-card img {
     width: 100%;
     height: 200px;
-    object-fit: cover;
+    object-fit: cover; /* Prevents distortion */
 }
 
 .product-card h3 {
@@ -219,6 +239,7 @@ button.submit-btn:hover {
 }
 
 /* ================= MEDIA QUERIES ================= */
+/* Adjust heading sizes for medium screens */
 @media (max-width: 1200px) {
     h1,
     .intro {
@@ -238,7 +259,7 @@ button.submit-btn:hover {
 
     .nav_bar a {
         font-size: 16px;
-        gap: 15px;
+        gap: 15px; /* Reduce spacing on smaller screens */
     }
 
     button {
@@ -247,6 +268,7 @@ button.submit-btn:hover {
     }
 }
 
+/* Small phone screens */
 @media (max-width: 480px) {
     h1,
     .intro {
@@ -258,7 +280,7 @@ button.submit-btn:hover {
     }
 
     .nav_bar a {
-        width: 100%;
+        width: 100%; /* Stack vertical navigation */
         text-align: center;
     }
 
@@ -272,10 +294,11 @@ button.submit-btn:hover {
     }
 
     .product-card img {
-        height: 150px;
+        height: 150px; /* Smaller images */
     }
 }
 
+/* Extra small devices */
 @media (max-width: 400px) {
     .intro {
         font-size: 24px;
